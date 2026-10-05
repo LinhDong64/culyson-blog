@@ -6,10 +6,34 @@ const LatestPosts: FC = () => {
     <div className="w-full py-15 flex flex-col gap-4">
       <h2 className="text-2xl font-bold">Bài viết mới nhất</h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <NormalCardImage />
-        <NormalCardImage />
-        <NormalCardImage />
-        <NormalCardImage />
+        <NormalCardImage 
+        postedDate="" 
+        readingTime="" 
+        title=""
+        description=""
+        tags={[]}
+        />
+        <NormalCardImage 
+        postedDate="" 
+        readingTime="" 
+        title=""
+        description=""
+        tags={[]}
+        />
+        <NormalCardImage 
+        postedDate="" 
+        readingTime="" 
+        title=""
+        description=""
+        tags={[]}
+        />
+        <NormalCardImage 
+        postedDate="" 
+        readingTime="" 
+        title=""
+        description=""
+        tags={[]}
+        />
       </div>
     </div>
   );

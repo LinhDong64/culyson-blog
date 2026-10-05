@@ -3,7 +3,7 @@ import BaseInfo from "@/features/home/components/BaseInfo";
 import SectionLayout from "@/components/common/SectionLayout";
 import FeaturedPost from "@/features/home/components/FeaturedPost";
 import LatestPosts from "@/features/home/components/LatestPosts";
-import Categories from "@/features/home/components/Categories";
+import Categories from "@/components/common/Categories";
 
 const HomeContent: FC = () => {
   return (

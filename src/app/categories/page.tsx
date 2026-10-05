@@ -1,11 +1,9 @@
 import { FC } from "react";
+import CategoriesContent from "@/features/categories";
 
 const Categories: FC = () => {
   return (
-    <div>
-      <h1>Categories</h1>
-      <p>This is the categories page.</p>
-    </div>
+    <CategoriesContent />
   );
 };
 

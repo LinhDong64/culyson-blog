@@ -1,5 +1,8 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import dayjs from "dayjs";
+import { CalendarDaysIcon, ClockIcon } from "lucide-react";
+import Image from "next/image";
 import {
   Card,
   CardAction,
@@ -7,33 +10,82 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { FC } from "react"
+} from "@/components/ui/card";
+import { FC } from "react";
 
-const NormalCardImage: FC = () => {
+type NormalCardImageProps = {
+  postedDate: string;
+  readingTime: string;
+  title: string;
+  description: string;
+  tags: string[];
+  image?: string;
+  featured?: boolean;
+  showReadMore?: boolean;
+};
+const NormalCardImage: FC<NormalCardImageProps> = ({
+  postedDate,
+  readingTime,
+  title,
+  description,
+  tags,
+  image,
+  featured = true,
+  showReadMore = true,
+}) => {
   return (
     <Card className="relative mx-auto w-full pt-0">
-      <div className="relative z-20 aspect-16/7 w-full bg-gray-300" />
-      {/* <div className="absolute inset-0 z-30 aspect-video bg-black/35" /> */}
-      {/* <img
-        src="https://avatar.vercel.sh/shadcn1"
-        alt="Event cover"
-        className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
-      /> */}
+      <div className="relative aspect-16/7 w-full bg-gray-300">
+        {image && (
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(min-width: 1152px) 540px, (min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+        )}
+      </div>
       <CardHeader>
-        <CardAction>
-          <Badge variant="secondary">Featured</Badge>
-        </CardAction>
-        <CardTitle>Design systems meetup</CardTitle>
-        <CardDescription>
-          A practical talk on component APIs, accessibility, and shipping
-          faster.
-        </CardDescription>
+        <div className="mb-4 flex flex-wrap gap-x-8 gap-y-2">
+          <div className="flex items-center">
+            <CalendarDaysIcon
+              className="inline-block mr-2"
+              width={20}
+              height={20}
+            />
+            <p className="text-muted-foreground">
+              {dayjs(postedDate).format("DD-MM-YYYY")}
+            </p>
+          </div>
+          <div className="flex items-center">
+            <ClockIcon className="inline-block mr-2" width={20} height={20} />
+            <p className="text-muted-foreground">{readingTime}</p>
+          </div>
+        </div>
+        {featured && (
+          <CardAction>
+            <Badge variant="secondary">Featured</Badge>
+          </CardAction>
+        )}
+        <CardTitle className="text-2xl font-bold"><h3>{title}</h3></CardTitle>
+        <CardDescription>{description}</CardDescription>
+        {showReadMore && <Button className="cursor-pointer">Read More</Button>}
       </CardHeader>
-      <CardFooter>
-        <Button className="w-full">View Event</Button>
-      </CardFooter>
+      {tags.length > 0 && (
+        <CardFooter className="flex-wrap gap-2 bg-background">
+          {tags.map((tag) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="mr-2 rounded-[4px] display-inline-block py-4 px-8"
+            >
+              {tag}
+            </Badge>
+          ))}
+        </CardFooter>
+      )}
     </Card>
-  )
-}
+  );
+};
 export default NormalCardImage;

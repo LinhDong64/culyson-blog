@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Lexend, PT_Serif } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/common/NavBar";
-import SiteFooter from "@/components/common/Footer";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -25,18 +23,22 @@ export const metadata: Metadata = {
   description: "Personal blog of Mai Linh Dong",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+  navbarHeader,
+  footer,
+}: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       className={`${geistMono.variable} ${lexend.variable} ${ptSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-         <NavBar />
+        {navbarHeader}
         <main className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
           <div className="w-full h-full flex-1 ">{children}</div>
         </main>
-        <SiteFooter />
+        {footer}
       </body>
     </html>
   );
