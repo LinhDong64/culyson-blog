@@ -1,8 +1,9 @@
-// import Image from "next/image"
 import { FC } from "react"
 import dayjs from "dayjs"
 import { Badge } from "@/components/ui/badge"
 import { CalendarDaysIcon, ClockIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   Card,
   CardAction,
@@ -11,29 +12,33 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 type HeroCardImageProps = {
   postedDate: string;
   readingTime: string;
-  image: string;
+  image?: string;
   title: string;
   description: string;
   tags: string[];
+  href?: string;
 };
-const HeroCardImage: FC<HeroCardImageProps> = ({ postedDate, readingTime, image, title, description, tags }) => {
+const HeroCardImage: FC<HeroCardImageProps> = ({ postedDate, readingTime, image, title, description, tags, href }) => {
   return (
     <Card className="relative mx-auto w-full p-4">
-      <div className="relative z-20 aspect-16/7 w-full bg-gray-300" />
-      {/* <Image
-        src={image}
-        alt="Event cover"
-        className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
-        width="640"
-        height="360"
-      /> */}
+      <div className="relative aspect-16/7 w-full overflow-hidden bg-gray-300">
+        {image && (
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(max-width: 1152px) 100vw, 1120px"
+            className="object-cover"
+          />
+        )}
+      </div>
       <CardHeader>
-        <div className="flex gap-8 mb-4">
+        <div className="mb-4 flex flex-wrap gap-x-8 gap-y-2">
           <div className="flex items-center">
             <CalendarDaysIcon className="inline-block mr-2" width={20} height={20} />
             <p className="text-muted-foreground">{dayjs(postedDate).format("DD-MM-YYYY")}</p>
@@ -50,9 +55,13 @@ const HeroCardImage: FC<HeroCardImageProps> = ({ postedDate, readingTime, image,
         <CardDescription>
           {description}
         </CardDescription>
-        <Button className="cursor-pointer">Read More</Button>
+        {href && (
+          <Link href={href} className={buttonVariants()} aria-label={`Đọc bài: ${title}`}>
+            Đọc bài
+          </Link>
+        )}
       </CardHeader>
-      <CardFooter className="bg-white">
+      <CardFooter className="flex-wrap gap-2 bg-background">
         {
           tags.length > 0 && tags.map((tag) => (
             <Badge key={tag} variant="secondary" className="mr-2 rounded-[4px] display-inline-block py-4 px-8">

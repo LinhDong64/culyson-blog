@@ -4,6 +4,7 @@ import NormalCardImage from "@/components/common/NormalCardImage";
 import { Button } from "@/components/ui/button";
 import type { CategoryPostsPage } from "@/features/categories/services/posts";
 import { LoaderCircleIcon, PlusIcon } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 type CategoryPostsProps = {
@@ -70,16 +71,22 @@ export default function CategoryPosts({ categorySlug, image, initialPage }: Cate
       <ul id="category-post-list" aria-busy={loading} className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {page.posts.map((post) => (
           <li key={post.slug}>
-            <NormalCardImage
-              postedDate={post.postedDate}
-              readingTime={post.readingTime}
-              title={post.title}
-              description={post.description}
-              tags={post.tags}
-              image={image}
-              featured={false}
-              showReadMore={false}
-            />
+            <Link
+              href={`/posts/${post.slug}`}
+              aria-label={post.title}
+              className="block rounded-xl transition-shadow hover:ring-2 hover:ring-ring focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+            >
+              <NormalCardImage
+                postedDate={post.postedDate}
+                readingTime={post.readingTime}
+                title={post.title}
+                description={post.description}
+                tags={post.tags}
+                image={image}
+                featured={false}
+                showReadMore={false}
+              />
+            </Link>
           </li>
         ))}
       </ul>

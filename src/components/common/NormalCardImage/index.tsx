@@ -1,8 +1,9 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import dayjs from "dayjs";
 import { CalendarDaysIcon, ClockIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Card,
   CardAction,
@@ -22,6 +23,7 @@ type NormalCardImageProps = {
   image?: string;
   featured?: boolean;
   showReadMore?: boolean;
+  href?: string;
 };
 const NormalCardImage: FC<NormalCardImageProps> = ({
   postedDate,
@@ -32,6 +34,7 @@ const NormalCardImage: FC<NormalCardImageProps> = ({
   image,
   featured = true,
   showReadMore = true,
+  href,
 }) => {
   return (
     <Card className="relative mx-auto w-full pt-0">
@@ -70,7 +73,11 @@ const NormalCardImage: FC<NormalCardImageProps> = ({
         )}
         <CardTitle className="text-2xl font-bold"><h3>{title}</h3></CardTitle>
         <CardDescription>{description}</CardDescription>
-        {showReadMore && <Button className="cursor-pointer">Read More</Button>}
+        {showReadMore && href && (
+          <Link href={href} className={buttonVariants()} aria-label={`Đọc bài: ${title}`}>
+            Đọc bài
+          </Link>
+        )}
       </CardHeader>
       {tags.length > 0 && (
         <CardFooter className="flex-wrap gap-2 bg-background">
