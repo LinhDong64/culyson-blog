@@ -1,13 +1,9 @@
-import { FC } from "react";
 import NormalCardImage from "@/components/common/NormalCardImage";
-import { BLOG_POSTS, CATEGORIES } from "@/constants";
+import { getPosts } from "@/lib/strapi";
 
-const LatestPosts: FC = () => {
-  const latestPosts = [...BLOG_POSTS]
-    .sort((first, second) =>
-      second.postedDate.localeCompare(first.postedDate) || first.slug.localeCompare(second.slug)
-    )
-    .slice(0, 4);
+const LatestPosts = async () => {
+  const { posts } = await getPosts({ pageSize: 4 });
+  const latestPosts = posts.filter((post) => post.category);
 
   return (
     <div className="w-full py-15 flex flex-col gap-4">
@@ -16,14 +12,15 @@ const LatestPosts: FC = () => {
         {latestPosts.map((post) => (
           <NormalCardImage
             key={post.slug}
+            author={post.author}
             postedDate={post.postedDate}
             readingTime={post.readingTime}
-            image={CATEGORIES.find((category) => category.slug === post.categorySlug)?.image}
+            image={post.cover ?? undefined}
             title={post.title}
             description={post.description}
             tags={post.tags}
             featured={false}
-            href={`/categories/${post.categorySlug}/${post.slug}`}
+            href={`/categories/${encodeURIComponent(post.category!.slug)}/${encodeURIComponent(post.slug)}`}
           />
         ))}
       </div>

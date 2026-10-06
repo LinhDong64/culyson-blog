@@ -1,4 +1,4 @@
-import { BLOG_POSTS, CATEGORIES } from "@/constants";
+import { getCategoryBySlug, getPostBySlug } from "@/lib/strapi";
 import PostDetail from "@/features/posts";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -7,26 +7,22 @@ type PostPageProps = {
   params: Promise<{ slug: string; postSlug: string }>;
 };
 
-function getPostDetail(categorySlug: string, postSlug: string) {
-  const category = CATEGORIES.find((item) => item.slug === categorySlug);
-  const post = BLOG_POSTS.find(
-    (item) => item.slug === postSlug && item.categorySlug === categorySlug
-  );
+async function getPostDetail(categorySlug: string, postSlug: string) {
+  const [category, post] = await Promise.all([
+    getCategoryBySlug(categorySlug),
+    getPostBySlug(postSlug),
+  ]);
 
-  if (!category || !post) {
+  if (!category || !post || post.category?.slug !== categorySlug) {
     notFound();
   }
 
   return { post, category };
 }
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.categorySlug, postSlug: post.slug }));
-}
-
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug, postSlug } = await params;
-  const { post } = getPostDetail(slug, postSlug);
+  const { post } = await getPostDetail(slug, postSlug);
 
   return {
     title: `${post.title} | Culyson blog`,
@@ -36,7 +32,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug, postSlug } = await params;
-  const { post, category } = getPostDetail(slug, postSlug);
+  const { post, category } = await getPostDetail(slug, postSlug);
 
   return <PostDetail post={post} category={category} />;
 }

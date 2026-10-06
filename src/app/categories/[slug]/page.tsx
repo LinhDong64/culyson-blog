@@ -1,5 +1,5 @@
 import SectionLayout from "@/components/common/SectionLayout";
-import { CATEGORIES } from "@/constants";
+import { getCategoryBySlug } from "@/lib/strapi";
 import CategoryPosts from "@/features/categories/components/CategoryPosts";
 import { getCategoryPostsPage } from "@/features/categories/services/posts";
 import { ArrowLeftIcon } from "lucide-react";
@@ -13,13 +13,13 @@ export default async function CategoryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const category = CATEGORIES.find((item) => item.slug === slug);
+  const category = await getCategoryBySlug(slug);
 
   if (!category) {
     notFound();
   }
 
-  const initialPage = getCategoryPostsPage(category.slug);
+  const initialPage = await getCategoryPostsPage(category.slug);
 
   return (
     <SectionLayout bg="bg-background">
@@ -36,7 +36,7 @@ export default async function CategoryPage({
           <p className="mt-3 leading-relaxed text-muted-foreground">{category.description}</p>
           <p className="mt-3 text-sm text-muted-foreground">{initialPage.total} bài viết</p>
         </div>
-        <div className="relative aspect-4/3 overflow-hidden rounded-lg sm:aspect-16/7">
+        {category.image && <div className="relative aspect-4/3 overflow-hidden rounded-lg sm:aspect-16/7">
           <Image
             src={category.image}
             alt={category.alt}
@@ -45,7 +45,7 @@ export default async function CategoryPage({
             preload
             className="object-cover"
           />
-        </div>
+        </div>}
         <section aria-labelledby="category-posts" className="mt-10 sm:mt-14">
           <h2 id="category-posts" className="mb-6 text-2xl font-bold">Bài viết</h2>
           <CategoryPosts

@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import dayjs from "dayjs";
-import { CalendarDaysIcon, ClockIcon } from "lucide-react";
+import { CalendarDaysIcon, ClockIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,6 +15,7 @@ import {
 import { FC } from "react";
 
 type NormalCardImageProps = {
+  author: string;
   postedDate: string;
   readingTime: string;
   title: string;
@@ -26,6 +27,7 @@ type NormalCardImageProps = {
   href?: string;
 };
 const NormalCardImage: FC<NormalCardImageProps> = ({
+  author,
   postedDate,
   readingTime,
   title,
@@ -51,6 +53,10 @@ const NormalCardImage: FC<NormalCardImageProps> = ({
       </div>
       <CardHeader>
         <div className="mb-4 flex flex-wrap gap-x-8 gap-y-2">
+          <div className="flex min-w-0 items-center gap-2 text-muted-foreground">
+            <UserIcon aria-hidden="true" className="size-5 shrink-0" />
+            <p className="min-w-0 wrap-break-word"><span className="sr-only">Tác giả: </span>{author}</p>
+          </div>
           <div className="flex items-center">
             <CalendarDaysIcon
               className="inline-block mr-2"

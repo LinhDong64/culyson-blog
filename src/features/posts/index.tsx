@@ -1,17 +1,20 @@
 import SectionLayout from "@/components/common/SectionLayout";
 import { Badge } from "@/components/ui/badge";
-import type { BLOG_POSTS, CATEGORIES } from "@/constants";
+import type { Category, Post } from "@/types";
+import { BlocksRenderer, type BlocksContent } from "@strapi/blocks-react-renderer";
+import ReactMarkdown from "react-markdown";
 import dayjs from "dayjs";
-import { ArrowLeftIcon, CalendarDaysIcon, ClockIcon } from "lucide-react";
+import { ArrowLeftIcon, CalendarDaysIcon, ClockIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 type PostDetailProps = {
-  post: (typeof BLOG_POSTS)[number];
-  category: (typeof CATEGORIES)[number];
+  post: Post;
+  category: Category;
 };
 
 export default function PostDetail({ post, category }: PostDetailProps) {
+  const image = post.cover ?? category.image;
   return (
     <SectionLayout bg="bg-background">
       <article className="px-4 py-10 sm:px-6 sm:py-14">
@@ -31,6 +34,10 @@ export default function PostDetail({ post, category }: PostDetailProps) {
               {post.description}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+              <span className="inline-flex min-w-0 items-center gap-2">
+                <UserIcon aria-hidden="true" className="size-4 shrink-0" />
+                <span className="min-w-0 wrap-break-word"><span className="sr-only">Tác giả: </span>{post.author}</span>
+              </span>
               <span className="inline-flex items-center gap-2">
                 <CalendarDaysIcon aria-hidden="true" className="size-4" />
                 <time dateTime={post.postedDate}>
@@ -44,22 +51,26 @@ export default function PostDetail({ post, category }: PostDetailProps) {
             </div>
           </header>
         </div>
-        <figure className="mx-auto mt-8 max-w-4xl">
+        {image && <figure className="mx-auto mt-8 max-w-4xl">
           <div className="relative aspect-4/3 overflow-hidden rounded-lg sm:aspect-16/7">
             <Image
-              src={category.image}
-              alt={category.alt}
+              src={image}
+              alt={post.cover ? post.coverAlt : category.alt}
               fill
               sizes="(max-width: 896px) 100vw, 896px"
               preload
               className="object-cover"
             />
           </div>
-        </figure>
-        <div className="mx-auto mt-8 max-w-3xl space-y-6 font-heading text-lg leading-loose break-words sm:mt-10">
-          {post.content.map((paragraph, index) => (
-            <p key={`${post.slug}-${index}`}>{paragraph}</p>
-          ))}
+        </figure>}
+        <div className="mx-auto mt-8 max-w-3xl space-y-6 font-heading text-lg leading-loose break-words sm:mt-10 [&_a]:underline [&_h2]:text-2xl [&_h2]:font-bold [&_h3]:text-xl [&_h3]:font-bold [&_img]:max-w-full [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6 [&_pre]:overflow-x-auto">
+          {typeof post.content === "string" ? (
+            <ReactMarkdown>{post.content}</ReactMarkdown>
+          ) : post.content.every((paragraph) => typeof paragraph === "string") ? (
+            (post.content as string[]).map((paragraph, index) => <p key={`${post.slug}-${index}`}>{paragraph}</p>)
+          ) : (
+            <BlocksRenderer content={post.content as BlocksContent} />
+          )}
         </div>
         <footer className="mx-auto mt-10 max-w-3xl border-t border-border pt-6">
           {post.tags.length > 0 && (

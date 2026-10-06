@@ -40,6 +40,7 @@ export const CATEGORIES = [
 export const BLOG_POSTS = [
   {
     slug: "mot-ngay-cham-lai",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Một ngày chậm lại",
     description: "Dành một chút thời gian để lắng nghe mình giữa những ngày bận rộn.",
@@ -53,6 +54,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "nhung-ngay-long-nhe-tenh",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Những ngày lòng nhẹ tênh",
     description: "Niềm vui đôi khi đến từ những điều nhỏ bé mà ta thường bỏ qua.",
@@ -66,6 +68,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "hen-voi-nui-non",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Hẹn với núi non",
     description: "Một chuyến đi giữa những con đường quanh co và khoảng trời rộng mở.",
@@ -79,6 +82,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "di-de-tim-mot-khoang-lang",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Đi để tìm một khoảng lặng",
     description: "Rời nhịp sống quen thuộc để khám phá một nơi chốn mới.",
@@ -92,6 +96,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "hoc-cach-lang-nghe",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Học cách lắng nghe",
     description: "Những điều ta nhận ra khi dành nhiều thời gian hơn để lắng nghe.",
@@ -105,6 +110,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "khong-can-voi-vang",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Không cần vội vàng",
     description: "Mỗi người có một nhịp đi riêng, và ta có thể bước theo nhịp của mình.",
@@ -118,6 +124,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "nhung-tam-anh-cu",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Những tấm ảnh cũ",
     description: "Lật lại một album ảnh và nhớ về những ngày đã qua.",
@@ -131,6 +138,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "mua-he-nam-ay",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Mùa hè năm ấy",
     description: "Một câu chuyện nhỏ về mùa hè, bạn bè và những khoảnh khắc còn ở lại.",
@@ -144,6 +152,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "buoi-sang-ben-cua-so",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Buổi sáng bên cửa sổ",
     description: "Một tách trà ấm và ánh nắng đầu ngày đủ để lòng dịu lại.",
@@ -157,6 +166,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "khi-con-mua-ghe-qua",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Khi cơn mưa ghé qua",
     description: "Nghe tiếng mưa và để những lo âu trôi đi một chút.",
@@ -170,6 +180,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "cho-minh-mot-ngay-nghi",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Cho mình một ngày nghỉ",
     description: "Không cần làm điều gì lớn lao trong một ngày dành riêng cho mình.",
@@ -183,6 +194,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "niem-vui-tu-can-bep-nho",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Niềm vui từ căn bếp nhỏ",
     description: "Nấu một món quen và tìm lại cảm giác ấm áp giữa ngày dài.",
@@ -196,6 +208,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "nhung-luc-thay-minh-met",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Những lúc thấy mình mệt",
     description: "Học cách nhận ra giới hạn và đối xử nhẹ nhàng hơn với bản thân.",
@@ -209,6 +222,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "mot-loi-hoi-tham",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Một lời hỏi thăm",
     description: "Đôi khi một câu hỏi giản dị cũng có thể làm sáng cả ngày.",
@@ -222,6 +236,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "buoc-chan-cuoi-chieu",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Bước chân cuối chiều",
     description: "Một vòng đi bộ qua phố quen để sắp xếp lại những cảm xúc trong lòng.",
@@ -235,6 +250,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "giu-lai-mot-chut-am-ap",
+    author: "Culyson",
     categorySlug: "tam-trang",
     title: "Giữ lại một chút ấm áp",
     description: "Ghi lại những điều tử tế nhỏ bé đã gặp trong tuần.",
@@ -248,6 +264,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "buoi-sang-o-thanh-pho-la",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Buổi sáng ở thành phố lạ",
     description: "Khám phá những con phố mới khi hàng quán vừa mở cửa.",
@@ -261,6 +278,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "con-duong-ven-bien",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Con đường ven biển",
     description: "Theo một cung đường đầy gió và dừng lại trước màu xanh của biển.",
@@ -274,6 +292,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "mot-dem-cam-trai",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Một đêm cắm trại",
     description: "Dựng lều, nấu bữa tối và ngắm bầu trời xa ánh đèn thành phố.",
@@ -287,6 +306,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "ghe-tham-ngoi-lang-nho",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Ghé thăm ngôi làng nhỏ",
     description: "Những mái nhà yên tĩnh và câu chuyện gặp dọc đường.",
@@ -300,6 +320,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "chuyen-tau-cuoi-tuan",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Chuyến tàu cuối tuần",
     description: "Nhìn phong cảnh qua ô cửa và tận hưởng một hành trình chậm rãi.",
@@ -313,6 +334,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "di-bo-giua-rung-xanh",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Đi bộ giữa rừng xanh",
     description: "Một lối mòn dưới tán cây và những âm thanh dễ bỏ quên.",
@@ -326,6 +348,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "quan-ca-phe-tren-doi",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Quán cà phê trên đồi",
     description: "Một điểm dừng nhỏ để ngắm mây và trò chuyện cùng bạn đồng hành.",
@@ -339,6 +362,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "hanh-ly-cho-chuyen-di-ngan",
+    author: "Culyson",
     categorySlug: "vi-vu",
     title: "Hành lý cho chuyến đi ngắn",
     description: "Mang theo vừa đủ để dành chỗ cho những trải nghiệm mới.",
@@ -352,6 +376,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "y-nghia-cua-khoang-lang",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Ý nghĩa của khoảng lặng",
     description: "Để tâm trí nghỉ ngơi cũng là một cách tìm lại sự rõ ràng.",
@@ -365,6 +390,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "nhung-dieu-minh-co-the-doi",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Những điều mình có thể đổi",
     description: "Bắt đầu từ một thói quen nhỏ thay vì chờ đợi thay đổi lớn.",
@@ -378,6 +404,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "doc-mot-trang-sach-moi",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Đọc một trang sách mới",
     description: "Một ý tưởng trong sách có thể mở ra một góc nhìn khác.",
@@ -391,6 +418,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "dung-so-bat-dau-lai",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Đừng sợ bắt đầu lại",
     description: "Nhìn một khởi đầu mới như cơ hội hiểu mình hơn.",
@@ -404,6 +432,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "khi-minh-noi-khong",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Khi mình nói không",
     description: "Giữ một ranh giới rõ ràng để dành thời gian cho điều quan trọng.",
@@ -417,6 +446,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "lam-it-nhung-tron-ven",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Làm ít nhưng trọn vẹn",
     description: "Sự tập trung đôi khi có giá trị hơn một danh sách công việc dài.",
@@ -430,6 +460,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "nhin-lai-mot-tuan",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Nhìn lại một tuần",
     description: "Dành vài phút ghi lại những điều đã học và những điều muốn giữ.",
@@ -443,6 +474,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "mot-cau-hoi-danh-cho-minh",
+    author: "Culyson",
     categorySlug: "suy-nghi",
     title: "Một câu hỏi dành cho mình",
     description: "Điều gì thực sự khiến ta thấy một ngày có ý nghĩa?",
@@ -456,6 +488,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "chiec-ve-tau-nam-cu",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Chiếc vé tàu năm cũ",
     description: "Một mẩu giấy nhỏ gợi lại cả chuyến đi và những người đã gặp.",
@@ -469,6 +502,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "san-truong-ngay-ay",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Sân trường ngày ấy",
     description: "Nhớ tiếng trống, hàng cây và những câu chuyện giờ ra chơi.",
@@ -482,6 +516,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "bua-com-cung-gia-dinh",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Bữa cơm cùng gia đình",
     description: "Có những hương vị luôn đưa mình trở về một căn nhà quen.",
@@ -495,6 +530,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "la-thu-trong-ngan-keo",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Lá thư trong ngăn kéo",
     description: "Đọc lại những dòng chữ cũ và gặp một phiên bản khác của mình.",
@@ -508,6 +544,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "ngay-dau-den-thanh-pho",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Ngày đầu đến thành phố",
     description: "Chiếc ba lô, con đường lạ và cảm giác vừa háo hức vừa bỡ ngỡ.",
@@ -521,6 +558,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "bai-hat-cua-mot-thoi",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Bài hát của một thời",
     description: "Một giai điệu quen bất ngờ mang về những câu chuyện xa.",
@@ -534,6 +572,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "cuoc-hen-voi-ban-cu",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Cuộc hẹn với bạn cũ",
     description: "Gặp lại nhau và nhận ra có những điều vẫn không thay đổi.",
@@ -547,6 +586,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "can-phong-cua-tuoi-tho",
+    author: "Culyson",
     categorySlug: "ky-niem",
     title: "Căn phòng của tuổi thơ",
     description: "Những món đồ nhỏ và góc cửa sổ vẫn còn trong trí nhớ.",

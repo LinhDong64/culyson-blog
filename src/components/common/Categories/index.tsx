@@ -1,16 +1,16 @@
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRightIcon } from "lucide-react";
-import { FC } from "react";
 import Link from "next/link";
-import { CATEGORIES } from "@/constants";
+import { getCategories } from "@/lib/strapi";
 
-const Categories: FC = () => {
+const Categories = async () => {
+  const categories = await getCategories();
   return (
    <div className="w-full py-15 flex flex-col gap-4">
       <h2 className="text-2xl font-bold">Danh mục</h2>
       <div className="flex justify-between flex-wrap w-full gap-2">
         {
-          CATEGORIES.map(category => (
+          categories.map(category => (
             <Badge 
               key={category.name}
               variant="outline" 

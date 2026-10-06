@@ -1,7 +1,7 @@
 import { FC } from "react"
 import dayjs from "dayjs"
 import { Badge } from "@/components/ui/badge"
-import { CalendarDaysIcon, ClockIcon } from "lucide-react";
+import { CalendarDaysIcon, ClockIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,6 +15,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 
 type HeroCardImageProps = {
+  author: string;
   postedDate: string;
   readingTime: string;
   image?: string;
@@ -23,7 +24,7 @@ type HeroCardImageProps = {
   tags: string[];
   href?: string;
 };
-const HeroCardImage: FC<HeroCardImageProps> = ({ postedDate, readingTime, image, title, description, tags, href }) => {
+const HeroCardImage: FC<HeroCardImageProps> = ({ author, postedDate, readingTime, image, title, description, tags, href }) => {
   return (
     <Card className="relative mx-auto w-full p-4">
       <div className="relative aspect-16/7 w-full overflow-hidden bg-gray-300">
@@ -39,6 +40,10 @@ const HeroCardImage: FC<HeroCardImageProps> = ({ postedDate, readingTime, image,
       </div>
       <CardHeader>
         <div className="mb-4 flex flex-wrap gap-x-8 gap-y-2">
+          <div className="flex min-w-0 items-center gap-2 text-muted-foreground">
+            <UserIcon aria-hidden="true" className="size-5 shrink-0" />
+            <p className="min-w-0 wrap-break-word"><span className="sr-only">Tác giả: </span>{author}</p>
+          </div>
           <div className="flex items-center">
             <CalendarDaysIcon className="inline-block mr-2" width={20} height={20} />
             <p className="text-muted-foreground">{dayjs(postedDate).format("DD-MM-YYYY")}</p>

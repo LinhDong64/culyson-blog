@@ -1,13 +1,18 @@
 import SectionLayout from "@/components/common/SectionLayout";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CATEGORIES } from "@/constants";
+import { getCategories, getPosts } from "@/lib/strapi";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
+const CategoriesContent = async () => {
+  const items = await getCategories();
+  const [featuredCategory, ...categories] = await Promise.all(items.map(async (category) => {
+    const { pagination } = await getPosts({ categorySlug: category.slug, pageSize: 1 });
+    return { ...category, count: pagination.total };
+  }));
 
-const [featuredCategory, ...categories] = CATEGORIES;
-
-const CategoriesContent: FC = () => {
+  if (!featuredCategory) {
+    return <SectionLayout bg="bg-background"><p className="px-4 py-10 text-muted-foreground">Chưa có danh mục.</p></SectionLayout>;
+  }
   return (
     <>
       <SectionLayout bg="bg-transparent">
@@ -21,7 +26,7 @@ const CategoriesContent: FC = () => {
               aria-label={featuredCategory.name}
               className="block rounded-lg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
             >
-            <div className="relative aspect-4/3 w-full overflow-hidden sm:aspect-16/7">
+            {featuredCategory.image && <div className="relative aspect-4/3 w-full overflow-hidden sm:aspect-16/7">
               <Image
                 src={featuredCategory.image}
                 alt={featuredCategory.alt}
@@ -30,7 +35,7 @@ const CategoriesContent: FC = () => {
                 preload
                 className="object-cover"
               />
-            </div>
+            </div>}
             <CardHeader className="gap-3 px-5 py-7 text-center sm:py-9">
               <CardTitle>
                 <h3 className="text-3xl font-bold sm:text-4xl">{featuredCategory.name}</h3>
@@ -57,7 +62,7 @@ const CategoriesContent: FC = () => {
                   aria-label={category.name}
                   className="block h-full rounded-lg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
                 >
-                <div className="relative aspect-3/2 w-full overflow-hidden">
+                {category.image && <div className="relative aspect-3/2 w-full overflow-hidden">
                   <Image
                     src={category.image}
                     alt={category.alt}
@@ -65,7 +70,7 @@ const CategoriesContent: FC = () => {
                     sizes="(min-width: 1152px) 352px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover"
                   />
-                </div>
+                </div>}
                 <CardHeader className="gap-2 px-5 py-6 text-center">
                   <CardTitle>
                     <h3 className="text-2xl font-bold">{category.name}</h3>

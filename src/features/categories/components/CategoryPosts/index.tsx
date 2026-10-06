@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 
 type CategoryPostsProps = {
   categorySlug: string;
-  image: string;
+  image: string | null;
   initialPage: CategoryPostsPage;
 };
 
@@ -77,12 +77,13 @@ export default function CategoryPosts({ categorySlug, image, initialPage }: Cate
               className="block rounded-xl transition-shadow hover:ring-2 hover:ring-ring focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
             >
               <NormalCardImage
+                author={post.author}
                 postedDate={post.postedDate}
                 readingTime={post.readingTime}
                 title={post.title}
                 description={post.description}
                 tags={post.tags}
-                image={image}
+                image={post.cover ?? image ?? undefined}
                 featured={false}
                 showReadMore={false}
               />
