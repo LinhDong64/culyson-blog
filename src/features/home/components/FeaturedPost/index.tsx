@@ -20,7 +20,7 @@ const FeaturedPost: FC = () => {
         title={featuredPost.title}
         description={featuredPost.description}
         tags={featuredPost.tags}
-        href={`/posts/${featuredPost.slug}`}
+        href={`/categories/${featuredPost.categorySlug}/${featuredPost.slug}`}
       />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {otherFeaturedPosts.map((post) => (
@@ -32,7 +32,7 @@ const FeaturedPost: FC = () => {
             title={post.title}
             description={post.description}
             tags={post.tags}
-            href={`/posts/${post.slug}`}
+            href={`/categories/${post.categorySlug}/${post.slug}`}
           />
         ))}
       </div>

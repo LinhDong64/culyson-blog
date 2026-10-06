@@ -23,7 +23,7 @@ const LatestPosts: FC = () => {
             description={post.description}
             tags={post.tags}
             featured={false}
-            href={`/posts/${post.slug}`}
+            href={`/categories/${post.categorySlug}/${post.slug}`}
           />
         ))}
       </div>

@@ -4,19 +4,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type PostPageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; postSlug: string }>;
 };
 
-function getPostDetail(slug: string) {
-  const post = BLOG_POSTS.find((item) => item.slug === slug);
+function getPostDetail(categorySlug: string, postSlug: string) {
+  const category = CATEGORIES.find((item) => item.slug === categorySlug);
+  const post = BLOG_POSTS.find(
+    (item) => item.slug === postSlug && item.categorySlug === categorySlug
+  );
 
-  if (!post) {
-    notFound();
-  }
-
-  const category = CATEGORIES.find((item) => item.slug === post.categorySlug);
-
-  if (!category) {
+  if (!category || !post) {
     notFound();
   }
 
@@ -24,12 +21,12 @@ function getPostDetail(slug: string) {
 }
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  return BLOG_POSTS.map((post) => ({ slug: post.categorySlug, postSlug: post.slug }));
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const { post } = getPostDetail(slug);
+  const { slug, postSlug } = await params;
+  const { post } = getPostDetail(slug, postSlug);
 
   return {
     title: `${post.title} | Culyson blog`,
@@ -38,8 +35,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const { slug } = await params;
-  const { post, category } = getPostDetail(slug);
+  const { slug, postSlug } = await params;
+  const { post, category } = getPostDetail(slug, postSlug);
 
   return <PostDetail post={post} category={category} />;
 }

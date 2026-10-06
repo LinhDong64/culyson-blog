@@ -72,7 +72,7 @@ export default function CategoryPosts({ categorySlug, image, initialPage }: Cate
         {page.posts.map((post) => (
           <li key={post.slug}>
             <Link
-              href={`/posts/${post.slug}`}
+              href={`/categories/${categorySlug}/${post.slug}`}
               aria-label={post.title}
               className="block rounded-xl transition-shadow hover:ring-2 hover:ring-ring focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
             >
