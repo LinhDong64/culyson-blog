@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import type { Category, CategoryItem, Post, PostItem, StrapiEntity, StrapiPagination, StrapiRelation } from "@/types";
 
 const STRAPI_URL = (process.env.STRAPI_URL || process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337").replace(/\/$/, "");
@@ -39,6 +40,21 @@ function relation<Value>(value?: StrapiRelation<Value>): Value | null {
   return entity ? attributes(entity) : null;
 }
 
+function getContentText(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (Array.isArray(content)) return content.map(getContentText).join(" ");
+  if (typeof content !== "object" || content === null) return "";
+
+  const node = content as { text?: unknown; children?: unknown };
+  return typeof node.text === "string" ? node.text : getContentText(node.children);
+}
+
+function calculateReadingTime(content: unknown): string {
+  const wordCount = getContentText(content).trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(wordCount / 200));
+  return `${minutes} phút đọc`;
+}
+
 function mapCategory(item: CategoryItem): Category {
   const category = attributes(item);
   return {
@@ -70,11 +86,11 @@ export async function getCategories(): Promise<Category[]> {
   return categories;
 }
 
-export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+export const getCategoryBySlug = cache(async (slug: string): Promise<Category | null> => {
   const query = new URLSearchParams({ "filters[slug][$eq]": slug, "populate[0]": "image" });
   const json = await fetchStrapi(`/categories?${query}`);
   return json.data[0] ? mapCategory(json.data[0]) : null;
-}
+});
 
 // ======================
 // POSTS
@@ -106,13 +122,13 @@ export async function getPosts(options?: {
   };
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
+export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
   const query = new URLSearchParams({ "filters[slug][$eq]": slug, populate: "*" });
   const json = await fetchStrapi(`/articles?${query}`);
 
   if (!json.data?.[0]) return null;
   return mapPost(json.data[0]);
-}
+});
 
 // Helper map dữ liệu Post
 function mapPost(item: PostItem): Post {
@@ -127,7 +143,7 @@ function mapPost(item: PostItem): Post {
     description: post.description ?? "",
     content: post.content ?? [],
     postedDate: post.postedDate || post.publishedAt || post.createdAt || "",
-    readingTime: post.readingTime ?? "",
+    readingTime: calculateReadingTime(post.content),
     author: typeof post.author === "string" ? post.author : relation(post.author)?.name ?? "",
     cover: getStrapiMedia(relation(post.cover)?.url),
     coverAlt: post.coverAlt || post.title,

@@ -1,10 +1,27 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import test from "node:test";
+import { beforeEach, test } from "node:test";
 import ts from "typescript";
 
 process.env.STRAPI_URL = "http://strapi.test";
 process.env.STRAPI_API_TOKEN = "test-token";
+
+const requestCaches = [];
+function requestCache(fn) {
+  const results = new Map();
+  requestCaches.push(results);
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (!results.has(key)) results.set(key, fn(...args));
+    return results.get(key);
+  };
+}
+
+function resetRequestCache() {
+  requestCaches.forEach((results) => results.clear());
+}
+
+beforeEach(resetRequestCache);
 
 function loadModule(path, dependencies = {}) {
   const { outputText } = ts.transpileModule(readFileSync(new URL(path, import.meta.url), "utf8"), {
@@ -20,7 +37,7 @@ function loadModule(path, dependencies = {}) {
   return loadedModule.exports;
 }
 
-const api = loadModule("../src/lib/strapi.ts");
+const api = loadModule("../src/lib/strapi.ts", { react: { cache: requestCache } });
 const service = loadModule("../src/features/categories/services/posts.ts", { "@/lib/strapi": api });
 const route = loadModule("../src/app/api/categories/[slug]/posts/route.ts", {
   "@/lib/strapi": api,
@@ -59,11 +76,50 @@ test("normalizes v4/v5 articles, media, author relations, tags, and safe filters
     assert.equal(page.posts[0].category.slug, "travel");
     assert.equal(page.posts[0].author, "Author");
     assert.equal(page.posts[0].postedDate, "2026-10-01");
+    assert.equal(page.posts[0].readingTime, "1 phút đọc");
     assert.equal(page.posts[0].cover, "http://strapi.test/uploads/cover.jpg");
     assert.deepEqual(page.posts[0].tags, ["Tag"]);
     assert.deepEqual(page.posts[0].content, article.attributes?.content ?? article.content);
     context.mock.restoreAll();
   }
+});
+
+test("calculates reading time from the full article body instead of stale CMS metadata", async (context) => {
+  context.mock.method(globalThis, "fetch", async () => Response.json({
+    data: [entity({
+      title: "Long article",
+      slug: "long-article",
+      content: Array(201).fill("word").join(" "),
+      readingTime: "99 minutes",
+    }, false)],
+  }));
+
+  const post = await api.getPostBySlug("long-article");
+  assert.equal(post.readingTime, "2 phút đọc");
+});
+
+test("memoizes category and post slug lookups within a request", async (context) => {
+  let fetchCount = 0;
+  context.mock.method(globalThis, "fetch", async (url) => {
+    fetchCount += 1;
+    const isCategory = new URL(url).pathname === "/api/categories";
+    return Response.json({
+      data: [entity(isCategory
+        ? { name: "Travel", slug: "travel", image: null }
+        : { title: "Article", slug: "article" }, false)],
+    });
+  });
+
+  const [category, repeatedCategory, post, repeatedPost] = await Promise.all([
+    api.getCategoryBySlug("travel"),
+    api.getCategoryBySlug("travel"),
+    api.getPostBySlug("article"),
+    api.getPostBySlug("article"),
+  ]);
+
+  assert.equal(fetchCount, 2);
+  assert.strictEqual(category, repeatedCategory);
+  assert.strictEqual(post, repeatedPost);
 });
 
 test("filters featured articles using the CMS flag", async (context) => {
@@ -126,6 +182,7 @@ test("load-more route validates offsets, handles missing categories, and hides u
   }
   context.mock.method(globalThis, "fetch", async () => Response.json({ data: [] }));
   assert.equal((await route.GET(new Request("http://blog.test/api/categories/travel/posts"), params)).status, 404);
+  resetRequestCache();
   context.mock.method(globalThis, "fetch", async () => new Response(null, { status: 403 }));
   const response = await route.GET(new Request("http://blog.test/api/categories/travel/posts"), params);
   assert.equal(response.status, 502);
