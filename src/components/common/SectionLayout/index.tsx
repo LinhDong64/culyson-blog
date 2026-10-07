@@ -6,7 +6,7 @@ type SectionLayoutProps = {
   customClass?: string;
 };
 
-const SectionLayout: FC<SectionLayoutProps> = ({ children, bg= "bg-white", customClass="" }) => {
+const SectionLayout: FC<SectionLayoutProps> = ({ children, bg= "bg-background", customClass="" }) => {
   return (
    <div className={`w-full ${bg} ${customClass}`}>
       <div className={"mx-auto max-w-6xl"}>

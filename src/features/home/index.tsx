@@ -8,13 +8,13 @@ import Categories from "@/components/common/Categories";
 const HomeContent: FC = () => {
   return (
     <>
-      <SectionLayout bg="bg-white">
+      <SectionLayout bg="bg-background">
         <BaseInfo />
       </SectionLayout>
       <SectionLayout bg="bg-transparent">
         <FeaturedPost />
       </SectionLayout>
-      <SectionLayout bg="bg-white">
+      <SectionLayout bg="bg-background">
         <LatestPosts />
       </SectionLayout>
       <SectionLayout bg="bg-transparent">

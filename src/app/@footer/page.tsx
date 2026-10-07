@@ -12,7 +12,7 @@ const Footer: FC = () => {
             &copy; {new Date().getFullYear()} Culyson. All rights reserved.
           </p>
           <Link href="/" className="text-lg font-semibold tracking-tight">
-          <Image src="/logo.svg" alt="Culyson" width={200} height={80} />
+          <Image src="/logo.svg" alt="Culyson" width={200} height={80} className="dark:brightness-0 dark:invert" />
         </Link>
           <p className="text-sm text-muted-foreground">
             Built with ❤️ by Mai Linh Dong.
