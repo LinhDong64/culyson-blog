@@ -10,13 +10,10 @@ const BaseInfo: FC = () => {
             <p className="text-center max-w-2xl text-[18px] text-muted-foreground mb-9">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, ullam aliquid? Molestias cumque culpa, magnam repellat dicta suscipit quaerat ipsa? Recusandae dolores atque commodi. Aspernatur dolore modi vel a harum!</p>
             <div className="flex justify-center gap-4">
                 <p>Theo dõi tôi: </p>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.facebook.com/mai.linh.ong.2024/" target="_blank" rel="noopener noreferrer">
                     <Image src="/icons/icon-facebook.png" alt="Facebook" width={24} height={24} className="mb-5 grayscale transition-all hover:grayscale-0" /> 
                 </a>
-                {/* <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                    <Image src="/icons/icon-twitter.png" alt="Twitter" width={500} height={500} className="mb-5" /> 
-                </a> */}
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/mailinhdong/" target="_blank" rel="noopener noreferrer">
                     <Image src="/icons/icon-instagram.png" alt="Instagram" width={24} height={24} className="mb-5 grayscale transition-all hover:grayscale-0" /> 
                 </a>
             </div>

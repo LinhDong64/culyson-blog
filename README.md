@@ -18,9 +18,14 @@ Create `.env.local` in the project root with your Strapi connection settings:
 ```dotenv
 STRAPI_URL=http://localhost:1337
 STRAPI_API_TOKEN=your-read-only-api-token
+RESEND_EMAIL_API_TOKEN=your-resend-api-key
+RESEND_FROM_EMAIL="Culyson <contact@your-verified-domain.com>"
+CONTACT_EMAIL=mailinhdong@gmail.com
 ```
 
 `STRAPI_URL` is server-only. `NEXT_PUBLIC_STRAPI_URL` is supported as a fallback, but never expose the API token through a `NEXT_PUBLIC_` variable. Restart the development server after changing environment settings.
+
+The contact form sends messages through Resend. Verify the sender domain in Resend before setting `RESEND_FROM_EMAIL`; the API token, sender, and recipient are server-only settings.
 
 ## Project Structure
 
@@ -31,6 +36,7 @@ src/
 │   ├── @navbarHeader/            # Parallel navigation slot
 │   ├── about/                    # About page
 │   ├── api/categories/[slug]/posts/ # Category load-more API
+│   ├── api/contact/              # Resend contact form API
 │   ├── categories/
 │   │   ├── [slug]/[postSlug]/    # Article detail route
 │   │   ├── [slug]/               # Category detail route

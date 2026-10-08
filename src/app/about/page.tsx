@@ -17,8 +17,8 @@ const interests = [
 ];
 
 const socialLinks = [
-  { name: "Facebook", href: "https://facebook.com", icon: "/icons/icon-facebook.png" },
-  { name: "Instagram", href: "https://instagram.com", icon: "/icons/icon-instagram.png" },
+  { name: "Facebook", href: "https://www.facebook.com/mai.linh.ong.2024/", icon: "/icons/icon-facebook.png" },
+  { name: "Instagram", href: "https://www.instagram.com/mailinhdong/", icon: "/icons/icon-instagram.png" },
 ];
 
 const About = () => {
@@ -52,9 +52,9 @@ const About = () => {
                 rel="noopener noreferrer"
                 aria-label={`${social.name} (mở trong tab mới)`}
                 title={social.name}
-                className="inline-flex size-11 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                className="inline-flex size-11 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted dark:bg-white dark:hover:bg-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
               >
-                <Image src={social.icon} alt="" width={22} height={22} className="grayscale transition-all hover:grayscale-0 dark:brightness-0 dark:invert" />
+                <Image src={social.icon} alt="" width={22} height={22} className="grayscale transition-all hover:grayscale-0" />
               </a>
             ))}
           </div>
